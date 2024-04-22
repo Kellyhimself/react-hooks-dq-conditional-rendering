@@ -1,33 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 
-function MenuBar(props) {
-  /*
+function MenuBar({ changeMenu }) {
+  // The useState hook is used to track the currently active menu item.
+  const [activeItem, setActiveItem] = useState("");
 
-  The 'span' tags below are the menu items. Think about the way a menu 
-  should work. When you click a menu item, the button typically becomes
-  'active' to indicate that it is currently selected. How could we achieve
-  this programatically? What other behavior do we expect when we click
-  on a menu item? Do we need state in this component, and if not, how can
-  this component be made aware of what is currently the active menu item?
+  const handleClick = (e) => {
+    // When a menu item is clicked, the handleClick function is called.
 
-  */
+    // The setActiveItem function is used to set the activeItem state to the ID of the clicked menu item.
+    setActiveItem(e.target.id);
+
+    // The changeMenu function is called to change the displayed page.
+    let page = e.target.getAttribute("data-page");
+
+    changeMenu(page);
+  };
 
   return (
     <div className="ui four item menu">
-      <span className="item active">
+      <span
+        id="profile"
+        data-page="Profile"
+        // The className property is used to set the CSS class of the menu item.
+        className={activeItem === "profile" ? "item active" : "item"}
+        // The onClick property is used to specify the function that should be called when the menu item is clicked.
+        onClick={handleClick}
+      >
         <i className="user large icon" />
       </span>
 
-      <span className="item">
+      <span
+        id="photos"
+        data-page="Photos"
+        className={activeItem === "photos" ? "item active" : "item"}
+        onClick={handleClick}
+      >
         <i className="photo large icon" />
       </span>
 
-      <span className="item">
+      <span
+        id="cocktails"
+        data-page="Cocktails"
+        className={activeItem === "cocktails" ? "item active" : "item"}
+        onClick={handleClick}
+      >
         <i className="cocktail large icon" />
       </span>
 
-      <span className="item">
-        <i className=" themeisle large icon" />
+      <span
+        id="pokemon"
+        data-page="Pokemon"
+        className={activeItem === "pokemon" ? "item active" : "item"}
+        onClick={handleClick}
+      >
+        <i className="themeisle large icon" />
       </span>
     </div>
   );

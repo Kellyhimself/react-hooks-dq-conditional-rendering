@@ -1,6 +1,7 @@
 import React from "react";
 import MenuBar from "./MenuBar";
 import { Profile, Photos, Cocktails, Pokemon } from "./pages";
+import { useState } from "react";
 
 function MainBox() {
   /*
@@ -12,11 +13,34 @@ function MainBox() {
     - Where should these methods be called?
   */
 
-  let detailsToDisplay = <div>Hi, I'm a div!</div>;
+  /*   let detailsToDisplay = <Pokemon />; */
+  const [detailsToDisplay, setDetailsToDisplay] = useState(<Profile />);
+
+  const changeMenu = (page) => {
+    alert(page);
+    switch (page) {
+      case "Profile":
+        setDetailsToDisplay(<Profile />);
+        break;
+      case "Photos":
+        setDetailsToDisplay(<Photos />);
+        break;
+      case "Cocktails":
+        setDetailsToDisplay(<Cocktails />);
+        break;
+      case "Pokemon":
+        setDetailsToDisplay(<Pokemon />);
+        break;
+      default:
+        setDetailsToDisplay(<Profile />);
+    }
+  };
 
   return (
     <div>
-      <MenuBar />
+      <MenuBar changeMenu={changeMenu} />
+      {/* the changeMenu function is a stateChanger function that we
+      will pass as a prop to our MenuBar child */}
       {detailsToDisplay}
     </div>
   );
